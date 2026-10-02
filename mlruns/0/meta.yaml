@@ -1,0 +1,9 @@
+artifact_location: file:///Users/nchau/Documents/ML/A3/mlruns/0
+creation_time: 1790913666981
+effective_trace_archival_retention: null
+experiment_id: '0'
+last_update_time: 1790913666981
+lifecycle_stage: active
+name: Default
+trace_location: null
+workspace: default
