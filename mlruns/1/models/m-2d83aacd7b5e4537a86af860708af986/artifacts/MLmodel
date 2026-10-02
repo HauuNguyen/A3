@@ -1,0 +1,32 @@
+artifact_path: /Users/nchau/Documents/ML/A3/mlruns/1/models/m-2d83aacd7b5e4537a86af860708af986/artifacts
+flavors:
+  python_function:
+    cloudpickle_version: 3.1.2
+    code: null
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pyfunc.model
+    python_model: python_model.pkl
+    python_version: 3.12.5
+    streamable: false
+is_signature_from_type_hint: false
+mlflow_version: 3.15.2
+model_id: m-2d83aacd7b5e4537a86af860708af986
+model_size_bytes: 71383
+model_uuid: m-2d83aacd7b5e4537a86af860708af986
+prompts: null
+run_id: 1cb5250ff9d349eeaaadda759cf8a55f
+signature:
+  inputs: '[{"type": "long", "name": "year", "required": true}, {"type": "long", "name":
+    "km_driven", "required": true}, {"type": "string", "name": "fuel", "required":
+    true}, {"type": "string", "name": "seller_type", "required": true}, {"type": "string",
+    "name": "transmission", "required": true}, {"type": "long", "name": "owner", "required":
+    true}, {"type": "double", "name": "mileage", "required": true}, {"type": "double",
+    "name": "engine", "required": true}, {"type": "double", "name": "max_power", "required":
+    true}, {"type": "double", "name": "seats", "required": true}, {"type": "string",
+    "name": "brand", "required": true}]'
+  outputs: '[{"type": "long", "name": "predicted_class", "required": true}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2026-10-02 18:49:46.355006'

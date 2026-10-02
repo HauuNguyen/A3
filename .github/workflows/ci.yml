@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI/CD - Test and Deploy
 
 on:
   push:
@@ -9,31 +9,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - run: pip install pytest numpy
+      - run: pytest tests/ -v
 
-      - name: Install dependencies
-        run: |
-          pip install pytest numpy
-
-      - name: Run unit tests
-        run: pytest tests/ -v
-
-  build-and-push:
-    needs: test                              # chỉ chạy khi job test pass
-    if: github.event_name == 'push'          # pull request thì chỉ test, không push image
+  deploy:
+    needs: test
     runs-on: ubuntu-latest
-
+    if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -41,10 +30,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push image
-        uses: docker/build-push-action@v6
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./app
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/st127260-a3:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/car-price-a3:latest

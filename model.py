@@ -54,8 +54,8 @@ class LogisticRegression:
         error = h - Y
         grad = self.softmax_grad(X, error)
         if self.use_ridge:
-            loss += (self.l / m) * np.sum(self.W ** 2)
-            grad = grad + (2 * self.l / m) * self.W
+            loss += self.l * np.sum(self.W ** 2)   
+            grad = grad + 2 * self.l * self.W   
         return loss, grad
 
     def softmax(self, theta_t_x):
