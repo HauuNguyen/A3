@@ -1,7 +1,9 @@
 # Assignment 3: Car Price Classification
 
-**Student:** Nguyen Cong Hau (st127260)
-**Course:** AT82.03 Machine Learning
+**Student Information:**
+* **Full Name:** Nguyen Cong Hau
+* **Student ID:** st127260
+* **GitHub Repository:** [https://github.com/HauuNguyen/A3](https://github.com/HauuNguyen/A3)
 
 ---
 
@@ -17,31 +19,49 @@ full CI/CD pipeline.
 ---
 
 ## Repository Structure
+
+```
 A3/
-├── st127260.ipynb              # Main notebook: Tasks 1, 2, 3 (Objectives 1 & 2)
-├── model.py                    # LogisticRegression class (used by unit tests & app)
+├── st127260.ipynb
+├── model.py
 ├── tests/
-│   └── test_model.py           # Unit tests for Objective 3
+│   └── test_model.py
 ├── .github/
 │   └── workflows/
-│       └── ci.yml               # GitHub Actions: test -> build & push Docker image
+│       └── ci.yml
 ├── app/
-│   ├── app.py                   # Dash web app (A1 / A2 / A3 model selector)
-│   ├── model.py                 # LogisticRegression (A3, for unpickling model_a3.pkl)
-│   ├── models.py                # LinearRegression + penalties (A2, for unpickling model_a2.pkl)
-│   ├── model_a3.pkl              # Trained best A3 classification model
-│   ├── model_a2.pkl              # Trained A2 regression model
-│   ├── meta_a3.pkl               # Price bin edges + feature names for A3
-│   ├── preprocessor.pkl          # Shared preprocessing pipeline (A1/A2/A3)
-│   ├── car_price_model.joblib    # A1 scikit-learn pipeline
+│   ├── app.py
+│   ├── model.py
+│   ├── models.py
+│   ├── model_a3.pkl
+│   ├── model_a2.pkl
+│   ├── meta_a3.pkl
+│   ├── preprocessor.pkl
+│   ├── car_price_model.joblib
 │   ├── Dockerfile
 │   ├── docker-compose.yml
 │   └── requirements.txt
 ├── datasets/
 │   └── Cars.csv
-├── mlruns/                       # Local MLflow tracking (SQLite backend)
+├── mlruns/
 ├── mlflow.db
-└── *.png                         # Screenshots (MLflow runs, Model Registry, CI/CD)
+└── *.png
+```
+
+- `st127260.ipynb` — Main notebook: Tasks 1, 2, 3 (Objectives 1 & 2)
+- `model.py` — LogisticRegression class (used by unit tests & app)
+- `tests/test_model.py` — Unit tests for Objective 3
+- `.github/workflows/ci.yml` — GitHub Actions: test -> build & push Docker image
+- `app/app.py` — Dash web app (A1 / A2 / A3 model selector)
+- `app/model.py` — LogisticRegression (A3, for unpickling model_a3.pkl)
+- `app/models.py` — LinearRegression + penalties (A2, for unpickling model_a2.pkl)
+- `app/model_a3.pkl` — Trained best A3 classification model
+- `app/model_a2.pkl` — Trained A2 regression model
+- `app/meta_a3.pkl` — Price bin edges + feature names for A3
+- `app/preprocessor.pkl` — Shared preprocessing pipeline (A1/A2/A3)
+- `app/car_price_model.joblib` — A1 scikit-learn pipeline
+- `mlruns/`, `mlflow.db` — Local MLflow tracking (SQLite backend)
+- `*.png` — Screenshots (MLflow runs, Model Registry, CI/CD)
 
 ---
 
@@ -89,6 +109,7 @@ full marks. A SQLite-backed server (rather than `file:./mlruns`) was used
 because file-store does not support Model Registry.
 
 **Experiment Runs (Objective 1):**
+
 ![MLflow Runs](./mlflow_runs_a3.png)
 
 | use_ridge | ridge_lambda | test_accuracy | test_macro_f1 | weight_norm |
@@ -100,6 +121,7 @@ because file-store does not support Model Registry.
 | True  | 0.01    | 0.6569 | 0.5853 | 31.8069 |
 
 **Registered Model at Staging (Objective 2):**
+
 The best run (no-ridge, test macro F1 = 0.5873) was registered as
 `st127260-a3-model` and transitioned to the **Staging** stage.
 
@@ -121,12 +143,13 @@ The best run (no-ridge, test macro F1 = 0.5873) was registered as
 deployment up to pushing the image to Docker Hub. Deploying the pulled
 image onto the course server (`ml-brain`) requires manually running
 `docker compose pull && docker compose up -d` there, since:
+
 1. The server requires SSH through a bastion host (`bazooka`) with
    interactive password authentication, which GitHub Actions' free-tier
    runners cannot perform securely/automatically.
 2. At the time of testing, the server's shared Docker network (`web`,
    used by Traefik for routing) was unavailable
-   (`docker network inspect web` → "network web not found"), which is a
+   (`docker network inspect web` -> "network web not found"), which is a
    server-side infrastructure issue outside this project's control.
 
 The Docker image itself builds and runs successfully, both locally and
@@ -138,28 +161,33 @@ above).
 ## How to Run
 
 ### Notebook
+
 ```bash
 pip install -r app/requirements.txt mlflow jupyter
 jupyter notebook st127260.ipynb
 ```
 
 ### Local MLflow server (for Objectives 1 & 2)
+
 ```bash
 mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlartifacts --port 5001
 ```
 
 ### Unit tests
+
 ```bash
 pip install pytest numpy
 pytest tests/ -v
 ```
 
 ### Web app (Docker)
+
 ```bash
 cd app
 docker build -t car-price-a3 .
 docker run -p 8050:8050 car-price-a3
 ```
+
 Then open `http://localhost:8050`.
 
 ---
