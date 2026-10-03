@@ -18,29 +18,30 @@ full CI/CD pipeline.
 
 ## Repository Structure
 A3/
-├── st127260.ipynb # Main notebook: Tasks 1, 2, 3 (Objectives 1 & 2)
-├── model.py # LogisticRegression class (used by unit tests & app)
+├── st127260.ipynb              # Main notebook: Tasks 1, 2, 3 (Objectives 1 & 2)
+├── model.py                    # LogisticRegression class (used by unit tests & app)
 ├── tests/
-│ └── test_model.py # Unit tests for Objective 3
-├── .github/workflows/
-│ └── ci.yml # GitHub Actions: test -> build & push Docker image
+│   └── test_model.py           # Unit tests for Objective 3
+├── .github/
+│   └── workflows/
+│       └── ci.yml               # GitHub Actions: test -> build & push Docker image
 ├── app/
-│ ├── app.py # Dash web app (A1 / A2 / A3 model selector)
-│ ├── model.py # LogisticRegression (A3, for unpickling model_a3.pkl)
-│ ├── models.py # LinearRegression + penalties (A2, for unpickling model_a2.pkl)
-│ ├── model_a3.pkl # Trained best A3 classification model
-│ ├── model_a2.pkl # Trained A2 regression model
-│ ├── meta_a3.pkl # Price bin edges + feature names for A3
-│ ├── preprocessor.pkl # Shared preprocessing pipeline (A1/A2/A3)
-│ ├── car_price_model.joblib # A1 scikit-learn pipeline
-│ ├── Dockerfile
-│ ├── docker-compose.yml
-│ └── requirements.txt
+│   ├── app.py                   # Dash web app (A1 / A2 / A3 model selector)
+│   ├── model.py                 # LogisticRegression (A3, for unpickling model_a3.pkl)
+│   ├── models.py                # LinearRegression + penalties (A2, for unpickling model_a2.pkl)
+│   ├── model_a3.pkl              # Trained best A3 classification model
+│   ├── model_a2.pkl              # Trained A2 regression model
+│   ├── meta_a3.pkl               # Price bin edges + feature names for A3
+│   ├── preprocessor.pkl          # Shared preprocessing pipeline (A1/A2/A3)
+│   ├── car_price_model.joblib    # A1 scikit-learn pipeline
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   └── requirements.txt
 ├── datasets/
-│ └── Cars.csv
-├── mlflow.db / mlruns/ # Local MLflow tracking (SQLite backend)
-└── *.png # Screenshots (MLflow runs, Model Registry, CI/CD)
-
+│   └── Cars.csv
+├── mlruns/                       # Local MLflow tracking (SQLite backend)
+├── mlflow.db
+└── *.png                         # Screenshots (MLflow runs, Model Registry, CI/CD)
 
 ---
 
